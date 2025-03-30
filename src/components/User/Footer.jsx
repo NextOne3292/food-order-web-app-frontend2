@@ -1,71 +1,77 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 
-export const Footer = () => {
-    return (
-        <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-12">
-            <div className="container mx-auto px-6 md:px-12 lg:px-16 grid grid-cols-1 md:grid-cols-4 gap-8">
-                
-                {/* Quick Links */}
-                <nav>
-                    <h6 className="text-xl font-semibold mb-4 uppercase tracking-wide">Quick Links</h6>
-                    <ul className="space-y-3">
-                        <li><Link className="hover:text-primary transition" to="/">Home</Link></li>
-                        <li><Link className="hover:text-primary transition" to="/restaurants">Restaurants</Link></li>
-                        <li><Link className="hover:text-primary transition" to="/menu">Menu</Link></li>
-                        <li><Link className="hover:text-primary transition" to="/contact">Contact Us</Link></li>
-                    </ul>
-                </nav>
+const Footer = () => {
+  return (
+    <footer className="bg-[#121212] text-gray-300 py-10 px-5">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {/* Services */}
+        <div>
+          <h3 className="text-lg font-semibold mb-3 text-[#E63946]">SERVICES</h3>
+          <ul className="space-y-2 text-sm">
+            <li><a href="#" className="hover:text-white">Branding</a></li>
+            <li><a href="#" className="hover:text-white">Design</a></li>
+            <li><a href="#" className="hover:text-white">Marketing</a></li>
+            <li><a href="#" className="hover:text-white">Advertisement</a></li>
+          </ul>
+        </div>
 
-                {/* Customer Service */}
-                <nav>
-                    <h6 className="text-xl font-semibold mb-4 uppercase tracking-wide">Customer Service</h6>
-                    <ul className="space-y-3">
-                        <li><Link className="hover:text-primary transition" to="/faqs">FAQs</Link></li>
-                        <li><Link className="hover:text-primary transition" to="/order-tracking">Track Order</Link></li>
-                        <li><Link className="hover:text-primary transition" to="/support">Support</Link></li>
-                    </ul>
-                </nav>
+        {/* Company */}
+        <div>
+          <h3 className="text-lg font-semibold mb-3 text-[#E63946]">COMPANY</h3>
+          <ul className="space-y-2 text-sm">
+            <li><a href="#" className="hover:text-white">About us</a></li>
+            <li><a href="#" className="hover:text-white">Contact</a></li>
+            <li><a href="#" className="hover:text-white">Jobs</a></li>
+            <li><a href="#" className="hover:text-white">Press kit</a></li>
+          </ul>
+        </div>
 
-                {/* Legal */}
-                <nav>
-                    <h6 className="text-xl font-semibold mb-4 uppercase tracking-wide">Legal</h6>
-                    <ul className="space-y-3">
-                        <li><Link className="hover:text-primary transition" to="/terms">Terms & Conditions</Link></li>
-                        <li><Link className="hover:text-primary transition" to="/privacy">Privacy Policy</Link></li>
-                        <li><Link className="hover:text-primary transition" to="/cookies">Cookie Policy</Link></li>
-                    </ul>
-                </nav>
+        {/* Legal */}
+        <div>
+          <h3 className="text-lg font-semibold mb-3 text-[#E63946]">LEGAL</h3>
+          <ul className="space-y-2 text-sm">
+            <li><a href="#" className="hover:text-white">Terms of Use</a></li>
+            <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
+            <li><a href="#" className="hover:text-white">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
 
-                {/* Newsletter */}
-                <div>
-                    <h6 className="text-xl font-semibold mb-4 uppercase tracking-wide">Subscribe to Offers</h6>
-                    <p className="text-gray-400 text-sm mb-4">Get exclusive discounts and food deals delivered to your inbox.</p>
-                    <div className="flex">
-                        <input type="email" placeholder="Enter your email" className="px-4 py-2 w-full text-gray-800 rounded-l-md focus:outline-none" />
-                        <button className="bg-primary text-white px-4 py-2 rounded-r-md hover:bg-red-600 transition">Subscribe</button>
-                    </div>
-                </div>
-            </div>
+      {/* Social Media & Download App Section */}
+      <div className="flex flex-col items-center mt-10 space-y-4">
+        {/* Social Media Icons */}
+        <div className="flex space-x-6">
+          <a href="https://facebook.com" target="_blank" className="text-gray-400 hover:text-[#E63946] text-2xl">
+            <FaFacebook />
+          </a>
+          <a href="https://instagram.com" target="_blank" className="text-gray-400 hover:text-[#E63946] text-2xl">
+            <FaInstagram />
+          </a>
+          <a href="https://twitter.com" target="_blank" className="text-gray-400 hover:text-[#E63946] text-2xl">
+            <FaTwitter />
+          </a>
+          <a href="https://linkedin.com" target="_blank" className="text-gray-400 hover:text-[#E63946] text-2xl">
+            <FaLinkedin />
+          </a>
+        </div>
 
-            {/* Social Media */}
-            <div className="mt-10 flex justify-center space-x-6">
-                <a href="https://facebook.com" className="text-gray-400 hover:text-blue-500 transition duration-300">
-                    <FaFacebook size={28} />
-                </a>
-                <a href="https://instagram.com" className="text-gray-400 hover:text-pink-500 transition duration-300">
-                    <FaInstagram size={28} />
-                </a>
-                <a href="https://twitter.com" className="text-gray-400 hover:text-blue-400 transition duration-300">
-                    <FaTwitter size={28} />
-                </a>
-            </div>
+        {/* Download App Section */}
+        <div className="flex space-x-4">
+          <a href="#" className="bg-[#E63946] text-white px-5 py-2 rounded-md font-semibold text-sm hover:bg-red-600">
+            Download on Play Store
+          </a>
+          <a href="#" className="bg-[#E63946] text-white px-5 py-2 rounded-md font-semibold text-sm hover:bg-red-600">
+            Download on App Store
+          </a>
+        </div>
+      </div>
 
-            {/* Copyright */}
-            <div className="text-center text-gray-400 text-sm mt-6">
-                &copy; {new Date().getFullYear()} <span className="font-semibold text-white">FoodieExpress</span>. All rights reserved.
-            </div>
-        </footer>
-    );
+      {/* Copyright */}
+      <div className="text-center text-gray-500 text-sm mt-6">
+        © 2025 FoodOrder. All rights reserved.
+      </div>
+    </footer>
+  );
 };
+
+export default Footer;
