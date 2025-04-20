@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./userSlice"; // Ensure this path is correct
-import cartReducer from "./cartSlice";
-import addressReducer from "./addressSlice";
+import userReducer from "./userSlice.js";
+ // Ensure this path is correct
+import cartReducer from "./cartSlice.js";
+import addressReducer from "./addressSlice.js";
 
 const store = configureStore({
   reducer: {
