@@ -13,7 +13,7 @@ import Logout from "../pages/user/LogoutPage";
 import UserProfilePage from "../pages/user/UserProfilePage";
 import AddressPage from "../pages/user/AddressPage";
 import SearchResults from "../pages/user/SearchResults";
-import About from "../pages/user/About.jsx";
+import AboutPage from "../pages/user/AboutPage";
 import PaymentPage from "../pages/user/PaymentPage";
 import SuccessPage from "../pages/user/SuccessPage";
 import CancelPage from "../pages/user/CancelPage";
@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
     element: <UserLayout />,
     children: [
       { index: true, element: <Home /> },
-      { path: "about", element: <About /> },
+      { path: "about", element: <AboutPage /> },
       { path: "restaurant/:id", element: <RestaurantDetails /> },
       
       
