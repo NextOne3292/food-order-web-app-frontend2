@@ -6,7 +6,7 @@ import Home from "../pages/user/Home";
 import RestaurantDetails from "../pages/user/RestaurantDetails";
 import Cart from "../pages/user/CartPage";
 import OrderPage from "../pages/user/OrderPage";
-import Signup from "../pages/user/SignupPage";
+import Signup from "../pages/user/signupPage";
 import Login from "../pages/user/LoginPage";
 import Logout from "../pages/user/LogoutPage";
 
