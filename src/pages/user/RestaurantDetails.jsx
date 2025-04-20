@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../config/axiosInstance";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cartSlice";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RestaurantDetails = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [restaurant, setRestaurant] = useState(null);
   const [menuItems, setMenuItems] = useState([]);
 
@@ -30,15 +37,45 @@ const RestaurantDetails = () => {
     fetchMenuItems();
   }, [id]);
 
+  const handleAddToCart = (menuItem) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+      navigate("/login", {
+        state: {
+          toastMessage: "Please log in to add items to your cart",
+        },
+      });
+      return;
+    }
+
+    dispatch(addToCart(menuItem))
+      .unwrap()
+      .then(() => {
+        toast.success(`${menuItem.name} added to cart!`, {
+          autoClose: 2000,
+        });
+      })
+      .catch((error) => {
+        if (error?.message === "Item already in cart") {
+          toast.info(`${menuItem.name} is already in your cart`);
+        } else {
+          toast.error("Failed to add item to cart.");
+        }
+      });
+  };
+
   if (!restaurant) {
     return <div className="text-center text-white text-lg mt-20">Loading...</div>;
   }
 
   return (
     <div className="max-w-5xl mx-auto px-4 mt-20">
+      
+
       <div className="bg-gray-900 shadow-xl text-white rounded-lg overflow-hidden w-full">
         <div className="md:grid md:grid-cols-2 gap-6 flex flex-col">
-          {restaurant?.image && (
+          {restaurant.image && (
             <img
               src={restaurant.image}
               alt={restaurant.name}
@@ -46,15 +83,15 @@ const RestaurantDetails = () => {
             />
           )}
           <div className="p-4 space-y-3">
-            <h2 className="text-2xl md:text-4xl font-bold text-primary">{restaurant?.name}</h2>
-            <p className="text-gray-400">{restaurant?.address}</p>
+            <h2 className="text-2xl md:text-4xl font-bold text-primary">{restaurant.name}</h2>
+            <p className="text-gray-400">{restaurant.address}</p>
             <p className="text-gray-300">
-              <span className="font-semibold">📞 Contact:</span> {restaurant?.contact}
+              <span className="font-semibold">📞 Contact:</span> {restaurant.contact}
             </p>
             <p className="text-gray-300">
-              <span className="font-semibold">⭐ Rating:</span> {restaurant?.rating}
+              <span className="font-semibold">⭐ Rating:</span> {restaurant.rating}
             </p>
-            {restaurant?.cuisines?.length > 0 && (
+            {restaurant.cuisines?.length > 0 && (
               <p className="text-gray-300">
                 <span className="font-semibold">🍽️ Cuisines:</span> {restaurant.cuisines.join(", ")}
               </p>
@@ -63,13 +100,11 @@ const RestaurantDetails = () => {
         </div>
       </div>
 
-      {/* Menu Section */}
       <div className="mt-8">
         <h3 className="text-2xl font-semibold text-white mb-4">Menu Items</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {menuItems.map((item) => (
             <div key={item._id} className="relative border border-gray-700 rounded-lg shadow-md bg-gray-800">
-              {/* Image with Hover Effect */}
               <div className="relative">
                 <img
                   src={item.image}
@@ -81,12 +116,11 @@ const RestaurantDetails = () => {
                     !item.isAvailable ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
                   }`}
                   disabled={!item.isAvailable}
+                  onClick={() => handleAddToCart(item)}
                 >
                   Add
                 </button>
               </div>
-
-              {/* Menu Details */}
               <div className="p-4">
                 <h4 className="text-lg font-semibold text-white">{item.name}</h4>
                 <p className="text-gray-400 text-sm">{item.description}</p>

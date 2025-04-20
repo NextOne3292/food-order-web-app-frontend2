@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = ({ onLogin, loading }) => {
   const {
     register,
     handleSubmit,
@@ -22,7 +22,7 @@ const LoginForm = ({ onLogin }) => {
       <p className="text-red-300 text-center mb-4">Get your favorite food delivered</p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        {/* Email Field */}
+        {/* Email */}
         <div>
           <label className="block text-dark font-medium mb-1">Email</label>
           <input
@@ -34,7 +34,7 @@ const LoginForm = ({ onLogin }) => {
           {errors.email && <p className="text-red-400 text-sm">{errors.email.message}</p>}
         </div>
 
-        {/* Password Field */}
+        {/* Password */}
         <div>
           <label className="block text-black font-medium mb-1">Password</label>
           <div className="relative">
@@ -55,15 +55,16 @@ const LoginForm = ({ onLogin }) => {
           {errors.password && <p className="text-red-400 text-sm">{errors.password.message}</p>}
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <button
           type="submit"
-          className="w-full py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition"
+          disabled={loading}
+          className="w-full py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition disabled:opacity-50"
         >
-          Login 
+          {loading ? "Logging in..." : "Login"}
         </button>
 
-        {/* Footer Links */}
+        {/* Footer */}
         <div className="text-center mt-3">
           <p className="text-gray-400 text-sm">
             Don't have an account?{" "}

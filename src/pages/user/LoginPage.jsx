@@ -1,26 +1,39 @@
-import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import React, { useState, useEffect } from "react";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoginForm from "../../components/user/LoginForm";
 import { axiosInstance } from "../../config/axiosInstance";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // 👈 added useLocation
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../redux/UserSlice"; // Import Redux action
+import {loginUser}  from "../../redux/userSlice";
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch(); // Get Redux dispatch
+  const dispatch = useDispatch();
+  const location = useLocation(); // 👈 get location state
+
+  // ✅ Show toast message passed via navigation (like from SearchResults)
+  useEffect(() => {
+    if (location.state?.toastMessage) {
+      toast.info(location.state.toastMessage);
+    }
+  }, [location]);
 
   const handleLogin = async (email, password) => {
     setLoading(true);
     try {
-      const response = await axiosInstance.post("/user/login", { email, password });
-
+      const response = await axiosInstance.post(
+        "/user/login",
+        { email, password },
+        { withCredentials: true }
+      );
+  
       toast.success("Login Successful 🎉");
-
-      dispatch(loginUser(response.data.data)); // ✅ Update Redux state immediately
-
+      const user = response.data.data;
+      dispatch(loginUser(user));
+  
+      // ✅ Just navigate after a delay without dismissing toast manually
       setTimeout(() => {
         navigate("/");
       }, 1000);
@@ -30,7 +43,7 @@ const LoginPage = () => {
       setLoading(false);
     }
   };
-
+  
   return (
     <div className="relative min-h-screen flex justify-center items-center bg-black">
       <div
@@ -42,7 +55,7 @@ const LoginPage = () => {
         <LoginForm onLogin={handleLogin} loading={loading} />
       </div>
 
-      <ToastContainer position="top-right" autoClose={2000} hideProgressBar />
+
     </div>
   );
 };

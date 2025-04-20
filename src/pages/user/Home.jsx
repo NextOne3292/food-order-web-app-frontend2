@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { axiosInstance } from "../../config/axiosInstance";
 import RestaurantCard from "../../components/user/RestaurantCard.jsx";
 
@@ -28,7 +27,6 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Fetch restaurants data
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
@@ -44,6 +42,15 @@ const Home = () => {
     fetchRestaurants();
   }, []);
 
+  useEffect(() => {
+    if (!isZoomed) {
+      const interval = setInterval(() => {
+        setCurrent((prev) => (prev + 1) % carouselImages.length);
+      }, 4000);
+      return () => clearInterval(interval);
+    }
+  }, [isZoomed]);
+
   const nextSlide = () => {
     setIsZoomed(false);
     setCurrent((prev) => (prev + 1) % carouselImages.length);
@@ -58,23 +65,34 @@ const Home = () => {
     setIsZoomed((prev) => !prev);
   };
 
+  const goToSlide = (index) => {
+    setCurrent(index);
+    setIsZoomed(false);
+  };
+
   return (
     <div className="w-full bg-gray-100 overflow-hidden">
       {/* Carousel Section */}
       <div className="relative w-full h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px] overflow-hidden">
-      <img
-  src={carouselImages[current].src}
-  alt="Food Banner"
-  className={`w-full h-full object-cover transition-transform duration-500 ease-in-out transform ${
-    isZoomed ? "scale-110 cursor-zoom-out" : "scale-100 cursor-zoom-in"
-  } hover:scale-105`}
-  onClick={toggleZoom}
-/>
+        <img
+          src={carouselImages[current].src}
+          alt="Food Banner"
+          className={`w-full h-full object-cover transition-transform duration-500 ease-in-out transform ${
+            isZoomed ? "scale-110 cursor-zoom-out" : "scale-100 cursor-zoom-in"
+          } hover:scale-105`}
+          onClick={toggleZoom}
+        />
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-center items-center text-white text-center px-4">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">{carouselImages[current].heading}</h2>
-          <p className="mt-2 text-sm sm:text-lg">{carouselImages[current].subheading}</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+            {carouselImages[current].heading}
+          </h2>
+          <p className="mt-2 text-sm sm:text-lg">
+            {carouselImages[current].subheading}
+          </p>
         </div>
+
+        {/* Navigation Buttons */}
         <button
           onClick={prevSlide}
           className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 z-10 text-sm sm:text-lg"
@@ -87,6 +105,19 @@ const Home = () => {
         >
           ❯
         </button>
+
+        {/* Pagination Dots */}
+        <div className="absolute bottom-4 w-full flex justify-center gap-2 z-10">
+          {carouselImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-3 h-3 rounded-full ${
+                current === index ? "bg-white" : "bg-white/40"
+              } hover:bg-white transition-all duration-300`}
+            ></button>
+          ))}
+        </div>
       </div>
 
       {/* Restaurants Section */}
@@ -110,9 +141,7 @@ const Home = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
             {restaurants.map((restaurant) => (
-              <Link to={`/restaurants/${restaurant._id}`} key={restaurant._id} className="h-full">
-                <RestaurantCard restaurant={restaurant} />
-              </Link>
+              <RestaurantCard restaurant={restaurant} key={restaurant._id} />
             ))}
           </div>
         )}

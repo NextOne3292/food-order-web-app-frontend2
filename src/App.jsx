@@ -6,11 +6,17 @@ import { router } from "./routes/router";
 function App() {
     return (
         <div className="w-full min-h-screen bg-white">
-            <ToastContainer /> {/* ToastContainer should be placed here */}
+           <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
             <RouterProvider router={router} />
         </div>
     );
 }
 
 export default App;
-

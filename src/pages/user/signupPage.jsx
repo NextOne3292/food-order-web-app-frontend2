@@ -10,32 +10,19 @@ const Signup = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    // Configure toast notifications
-    const notifySuccess = (message) => {
-        toast.success(message, {
-            position: "top-right",
-            autoClose: 3000, // Closes after 3 seconds
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
+    const toastOptions = {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
     };
 
-    const notifyError = (message) => {
-        toast.error(message, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
-    };
+    const notifySuccess = (message) => toast.success(message, toastOptions);
+    const notifyError = (message) => toast.error(message, toastOptions);
 
     const handleSignup = async (formData) => {
         setLoading(true);
@@ -43,16 +30,16 @@ const Signup = () => {
 
         try {
             const response = await axiosInstance.post("/user/signup", formData, {
-                headers: { "Content-Type": "multipart/form-data" },
+                headers: { "Content-Type": "application/json" }, // updated header
                 withCredentials: true,
             });
 
-            notifySuccess(response.data.message); // Show success toast
-            setTimeout(() => navigate("/login"), 3000); // Redirect after 3 sec
+            notifySuccess(response.data.message);
+            setTimeout(() => navigate("/login"), 3000);
         } catch (error) {
             const errorMsg = error.response?.data?.message || "Signup failed!";
             setError(errorMsg);
-            notifyError(errorMsg); // Show error toast
+            notifyError(errorMsg);
         }
 
         setLoading(false);
@@ -60,7 +47,7 @@ const Signup = () => {
 
     return (
         <div
-            className="flex justify-center items-center min-h-screen bg-gray-120 mt-25"
+            className="flex justify-center items-center min-h-screen bg-gray-100"
             style={{
                 backgroundImage: `url('/images/backaground-image.jpg')`,
                 backgroundSize: "cover",
