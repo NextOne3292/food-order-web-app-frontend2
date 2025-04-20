@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../../redux/userSlice";
+import { logoutUser } from "../../redux/UserSlice";
 import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../shared/SearchBar";
@@ -8,7 +8,7 @@ import { axiosInstance } from "../../config/axiosInstance";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Header = () => {
+const UserHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const dispatch = useDispatch();
@@ -213,4 +213,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default UserHeader;
