@@ -13,7 +13,7 @@ import Logout from "../pages/user/LogoutPage";
 import UserProfilePage from "../pages/user/UserProfilePage";
 import AddressPage from "../pages/user/AddressPage";
 import SearchResults from "../pages/user/SearchResults";
-import About from "../pages/user/About";
+import About from "../pages/user/About.jsx";
 import PaymentPage from "../pages/user/PaymentPage";
 import SuccessPage from "../pages/user/SuccessPage";
 import CancelPage from "../pages/user/CancelPage";
