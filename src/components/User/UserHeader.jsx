@@ -8,7 +8,7 @@ import { axiosInstance } from "../../config/axiosInstance";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const userHeader = () => {
+const UserHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const dispatch = useDispatch();
@@ -213,4 +213,4 @@ const userHeader = () => {
   );
 };
 
-export default userHeader;
+export default UserHeader;

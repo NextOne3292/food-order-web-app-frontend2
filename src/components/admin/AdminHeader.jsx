@@ -1,7 +1,7 @@
 // src/components/layout/AdminHeader.jsx
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logoutUser } from "../../redux/userSlice";
+import { logoutUser } from "../../redux/UserSlice";
 import { axiosInstance } from "../../config/axiosInstance";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
