@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart, clearCart } from "../../redux/cartSlice";
 import { fetchAddresses, deleteAddress, setSelectedAddress } from "../../redux/addressSlice";
-import CartItem from "../../components/user/CartItem";
-import AddressCard from "../../components/user/AddressCard";
-import AddressForm from "../../components/user/AddressForm";
+import CartItem from "../../components/User/CartItem";
+import AddressCard from "../../components/User/AddressCard";
+import AddressForm from "../../components/User/AddressForm";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../config/axiosInstance";
 

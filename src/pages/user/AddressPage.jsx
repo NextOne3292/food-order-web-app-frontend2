@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAddresses, deleteAddress, setSelectedAddress } from "../../redux/addressSlice";
-import AddressCard from "../../components/user/AddressCard";
+import AddressCard from "../../components/User/AddressCard";
 
 const AddressPage = () => {
   const dispatch = useDispatch();

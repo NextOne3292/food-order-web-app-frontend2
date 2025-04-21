@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance";
-import RestaurantCard from "../../components/user/RestaurantCard.jsx";
+import RestaurantCard from "../../components/User/RestaurantCard.jsx";
 
 const carouselImages = [
   {

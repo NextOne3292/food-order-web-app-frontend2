@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { axiosInstance } from "../../config/axiosInstance";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "../../redux/userSlice";
-import UserSidebar from "../../components/user/UserSidebar";
-import UserEditForm from "../../components/user/UserEditForm";
+import UserSidebar from "../../components/User/UserSidebar";
+import UserEditForm from "../../components/User/UserEditForm";
 
 const UserProfilePage = () => {
   const dispatch = useDispatch();

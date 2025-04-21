@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { axiosInstance } from "../../config/axiosInstance";
-import SignupForm from "../../components/user/signupForm";
+import SignupForm from "../../components/User/signupForm";
 
 const Signup = () => {
     const [loading, setLoading] = useState(false);

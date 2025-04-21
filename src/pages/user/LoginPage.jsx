@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import LoginForm from "../../components/user/LoginForm";
+import LoginForm from "../../components/User/LoginForm";
 import { axiosInstance } from "../../config/axiosInstance";
 import { useNavigate, useLocation } from "react-router-dom"; // 👈 added useLocation
 import { useDispatch } from "react-redux";
