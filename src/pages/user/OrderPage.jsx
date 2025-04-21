@@ -7,6 +7,8 @@ const OrderPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("Base URL:", import.meta.env.VITE_BASE_URL); // ✅ Console log added here
+
     const fetchOrders = async () => {
       try {
         const res = await axiosInstance.get("/orders", { withCredentials: true });
