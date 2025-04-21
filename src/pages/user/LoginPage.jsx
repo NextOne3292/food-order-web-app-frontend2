@@ -5,7 +5,7 @@ import LoginForm from "../../components/User/LoginForm";
 import { axiosInstance } from "../../config/axiosInstance";
 import { useNavigate, useLocation } from "react-router-dom"; // 👈 added useLocation
 import { useDispatch } from "react-redux";
-import {loginUser}  from "../../redux/userSlice";
+import {loginUser}  from "../../redux/UserSlice";
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);

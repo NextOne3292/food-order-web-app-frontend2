@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import  {logoutUser}  from "../../redux/userSlice";
+import  {logoutUser}  from "../../redux/UserSlice";
 import { axiosInstance } from "../../config/axiosInstance";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
