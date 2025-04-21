@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { axiosInstance } from "../../config/axiosInstance";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUser } from "../../redux/userSlice";
+import { updateUser } from "../../redux/UserSlice";
 import UserSidebar from "../../components/User/UserSidebar";
 import UserEditForm from "../../components/User/UserEditForm";
 
