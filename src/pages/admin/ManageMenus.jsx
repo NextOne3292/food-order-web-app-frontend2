@@ -125,6 +125,7 @@ const ManageMenus = () => {
       <Toaster position="top-right" />
       <h2 className="text-4xl font-semibold text-center mb-10">🍽️ Manage Menu Items</h2>
 
+      {/* Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         ref={formRef}
@@ -136,7 +137,7 @@ const ManageMenus = () => {
             <input
               {...register("name")}
               placeholder="Ex: Veg Biryani"
-              className="input"
+              className="mt-1 block w-full px-4 py-2 bg-white text-gray-900 border rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
               required
             />
           </div>
@@ -148,7 +149,7 @@ const ManageMenus = () => {
               type="number"
               step="0.01"
               placeholder="Ex: 199.00"
-              className="input"
+              className="mt-1 block w-full px-4 py-2 bg-white text-gray-900 border rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
               required
             />
           </div>
@@ -157,7 +158,7 @@ const ManageMenus = () => {
             <label className="block text-sm font-medium text-gray-700">Restaurant</label>
             <select
               {...register("restaurant")}
-              className="input"
+              className="mt-1 block w-full px-4 py-2 bg-white text-gray-900 border rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
               required
             >
               <option value="">Select Restaurant</option>
@@ -173,7 +174,7 @@ const ManageMenus = () => {
             <label className="block text-sm font-medium text-gray-700">Availability</label>
             <select
               {...register("isAvailable")}
-              className="input"
+              className="mt-1 block w-full px-4 py-2 bg-white text-gray-900 border rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
             >
               <option value="true">Available</option>
               <option value="false">Not Available</option>
@@ -187,7 +188,7 @@ const ManageMenus = () => {
             {...register("description")}
             rows={3}
             placeholder="Add some details about the item..."
-            className="input"
+            className="mt-1 block w-full px-4 py-2 bg-white text-gray-900 border rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
           />
         </div>
 
@@ -196,7 +197,7 @@ const ManageMenus = () => {
           <input
             {...register("image")}
             type="file"
-            className="input"
+            className="mt-1 block w-full bg-white text-gray-900 border rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
           />
         </div>
 
@@ -214,7 +215,7 @@ const ManageMenus = () => {
         <div className="flex space-x-4">
           <button
             type="submit"
-            className="btn-primary"
+            className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition duration-300"
           >
             {editingId ? "Update" : "Add"} Menu Item
           </button>
@@ -223,7 +224,7 @@ const ManageMenus = () => {
             <button
               type="button"
               onClick={handleCancel}
-              className="btn-secondary"
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-6 rounded-lg shadow transition duration-300"
             >
               Cancel
             </button>
@@ -231,6 +232,7 @@ const ManageMenus = () => {
         </div>
       </form>
 
+      {/* Search & Table */}
       <div className="mt-12">
         <div className="relative mb-4 w-full max-w-sm">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -241,7 +243,7 @@ const ManageMenus = () => {
             placeholder="Search menu items..."
             value={searchTerm}
             onChange={handleSearch}
-            className="input pl-10"
+            className="block w-full pl-10 pr-4 py-2 border bg-white border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500 text-gray-900"
           />
         </div>
 
