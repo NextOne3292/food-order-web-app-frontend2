@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { Search } from "lucide-react";
 
-const API_BASE = "http://localhost:3000/api/restaurants";
+const API_BASE = `${import.meta.env.VITE_BASE_URL}/api/restaurants`;
 
 const ManageRestaurants = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -12,16 +12,17 @@ const ManageRestaurants = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filtered, setFiltered] = useState([]);
   const restaurantRefs = useRef([]);
-  const { register, handleSubmit, reset, setValue } = useForm();
   const formRef = useRef(null);
+  const { register, handleSubmit, reset, setValue } = useForm();
 
   const fetchRestaurants = async () => {
     try {
-      const res = await axios.get(API_BASE);
+      const res = await axios.get(API_BASE, { withCredentials: true });
       setRestaurants(res.data.data);
       setFiltered(res.data.data);
     } catch (err) {
       console.error("Error fetching restaurants:", err);
+      toast.error("Failed to load restaurants");
     }
   };
 
@@ -30,17 +31,17 @@ const ManageRestaurants = () => {
   }, []);
 
   useEffect(() => {
-    if (searchTerm.trim() === "") {
+    if (!searchTerm.trim()) {
       setFiltered(restaurants);
     } else {
-      const lowerSearch = searchTerm.toLowerCase();
-      const filteredData = restaurants.filter((rest) => {
-        return (
-          rest.name.toLowerCase().includes(lowerSearch) ||
-          rest.cuisines?.join(", ").toLowerCase().includes(lowerSearch)
-        );
-      });
-      setFiltered(filteredData);
+      const lower = searchTerm.toLowerCase();
+      setFiltered(
+        restaurants.filter(
+          (rest) =>
+            rest.name.toLowerCase().includes(lower) ||
+            rest.cuisines?.join(", ").toLowerCase().includes(lower)
+        )
+      );
     }
   }, [searchTerm, restaurants]);
 
@@ -51,7 +52,7 @@ const ManageRestaurants = () => {
         if (key === "image" && data[key][0]) {
           formData.append(key, data[key][0]);
         } else if (key === "menu") {
-          formData.append("menu", JSON.stringify(JSON.parse(data[key])));
+          formData.append(key, JSON.stringify(JSON.parse(data[key])));
         } else {
           formData.append(key, data[key]);
         }
@@ -74,20 +75,20 @@ const ManageRestaurants = () => {
       setEditingId(null);
       fetchRestaurants();
     } catch (error) {
+      console.error("Submit error:", error);
       toast.error("Error submitting form");
-      console.error("Error submitting form:", error);
     }
   };
 
   const handleEdit = (restaurant) => {
     setEditingId(restaurant._id);
-    for (let key in restaurant) {
+    Object.keys(restaurant).forEach((key) => {
       if (key === "menu") {
         setValue("menu", JSON.stringify(restaurant[key]));
       } else if (key !== "image") {
         setValue(key, restaurant[key]);
       }
-    }
+    });
 
     setTimeout(() => {
       formRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -109,8 +110,8 @@ const ManageRestaurants = () => {
       toast.success("Restaurant deleted!");
       fetchRestaurants();
     } catch (error) {
-      toast.error("Failed to delete");
       console.error("Delete failed:", error);
+      toast.error("Failed to delete restaurant");
     }
   };
 
@@ -121,7 +122,6 @@ const ManageRestaurants = () => {
         🍽️ Manage Restaurants
       </h1>
 
-      {/* Search Input with Icon */}
       <div className="relative mb-6 max-w-xl mx-auto">
         <input
           type="text"
@@ -133,7 +133,6 @@ const ManageRestaurants = () => {
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
       </div>
 
-      {/* Restaurant Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         ref={formRef}
@@ -146,6 +145,7 @@ const ManageRestaurants = () => {
           <input {...register("cuisines")} placeholder="Cuisines (comma-separated)" className="input bg-white text-black input-bordered w-full" />
           <input type="number" {...register("rating")} placeholder="Rating (0-5)" className="input bg-white text-black input-bordered w-full" />
           <input type="file" {...register("image")} className="file-input file-input-bordered bg-white w-full" />
+          <textarea {...register("menu")} placeholder='Menu JSON (e.g., [{"name":"Pizza","price":100}])' className="textarea bg-white input-bordered text-black w-full col-span-1 md:col-span-2" />
         </div>
 
         <div className="flex flex-col md:flex-row items-center gap-4">
@@ -167,7 +167,6 @@ const ManageRestaurants = () => {
         </div>
       </form>
 
-      {/* Restaurant List */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
         {filtered.map((rest, index) => (
           <div
