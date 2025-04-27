@@ -23,7 +23,7 @@ const CartPage = () => {
   useEffect(() => {
     const checkAuthAndFetch = async () => {
       try {
-        const res = await axiosInstance.get("/user/me", { withCredentials: true });
+        const res = await axiosInstance.get("/user/me");
         if (res.status === 200) {
           dispatch(fetchCart());
           dispatch(fetchAddresses());

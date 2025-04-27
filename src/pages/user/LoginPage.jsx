@@ -26,7 +26,7 @@ const LoginPage = () => {
       const response = await axiosInstance.post(
         "/user/login",
         { email, password },
-        { withCredentials: true }
+       
       );
   
       toast.success("Login Successful 🎉");

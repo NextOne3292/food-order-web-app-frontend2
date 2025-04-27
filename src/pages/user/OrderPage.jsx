@@ -11,7 +11,7 @@ const OrderPage = () => {
 
     const fetchOrders = async () => {
       try {
-        const res = await axiosInstance.get("/orders", { withCredentials: true });
+        const res = await axiosInstance.get("/orders");
         setOrders(res.data.orders);
       } catch (err) {
         console.error("Failed to fetch orders", err);

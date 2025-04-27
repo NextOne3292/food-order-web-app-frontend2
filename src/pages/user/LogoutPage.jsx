@@ -12,7 +12,7 @@ const LogoutPage = () => {
 
   const handleLogout = async () => {
     try {
-      await axiosInstance.get("/user/logout", { withCredentials: true });
+      await axiosInstance.get("/user/logout");
 
       dispatch(logoutUser()); // Clears Redux state
       toast.success("Logout Successful 🎉");

@@ -29,7 +29,7 @@ const PaymentPage = () => {
 
         console.log("💳 Sending Checkout Request:", payload);
 
-        const res = await axiosInstance.post("/payment/create-checkout-session", payload, { withCredentials: true });
+        const res = await axiosInstance.post("/payment/create-checkout-session", payload);
 
         const stripe = await stripePromise;
         await stripe.redirectToCheckout({ sessionId: res.data.sessionId });
