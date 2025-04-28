@@ -13,7 +13,7 @@ const SuccessPage = () => {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const res = await axiosInstance.get(`/payment/verify-payment?session_id=${sessionId}`, { withCredentials: true });
+        const res = await axiosInstance.get(`/payment/verify-payment?session_id=${sessionId}`);
         setOrder(res.data.order);
       } catch (err) {
         console.error("Order creation failed:", err);
