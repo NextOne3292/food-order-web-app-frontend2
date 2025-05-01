@@ -9,7 +9,7 @@ const CancelPage = () => {
         <FaTimesCircle className="text-red-500 text-6xl mx-auto mb-4" />
         <h1 className="text-3xl font-bold text-gray-800 mb-2">Payment Cancelled</h1>
         <p className="text-gray-600 mb-6">
-          Your payment was not completed. You can try again or review your cart.
+          Your payment was not completed. please try again .
         </p>
         <Link
           to="/cart"

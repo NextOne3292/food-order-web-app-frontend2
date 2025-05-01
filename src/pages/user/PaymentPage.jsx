@@ -25,6 +25,7 @@ const PaymentPage = () => {
           })),
           deliveryAddress: selectedAddress,
           cartId,
+          clientDomain: window.location.origin, 
         };
 
         console.log("💳 Sending Checkout Request:", payload);
