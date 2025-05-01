@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { axiosInstance } from "../../config/axiosInstance";
-import toast from "react-hot-toast"; // ✅ Import toast
+import { toast } from "react-toastify"; // Import toast from react-toastify
 
 const OrderPage = () => {
   const [orders, setOrders] = useState([]);
@@ -17,13 +17,17 @@ const OrderPage = () => {
       setOrders(res.data.orders);
     } catch (err) {
       console.error("Failed to fetch orders", err);
-      toast.error("Failed to fetch orders");
+      toast.error("Failed to fetch orders"); // Show error toast
     } finally {
       setLoading(false);
     }
   };
 
   const handleDeleteItem = async (orderId, itemId) => {
+    // Confirmation dialog before deleting the item
+    const confirmed = window.confirm("Are you sure you want to delete this item?");
+    if (!confirmed) return; // Exit if the user cancels the action
+
     try {
       const res = await axiosInstance.delete(`/orders/${orderId}/item/${itemId}`);
       if (res.data.success) {
@@ -41,11 +45,11 @@ const OrderPage = () => {
             )
           );
         }
-        toast.success("Item deleted successfully!");
+        toast.success("Item deleted successfully!"); // Success toast
       }
     } catch (err) {
       console.error("Failed to delete item", err);
-      toast.error("Failed to delete item");
+      toast.error("Failed to delete item"); // Error toast
     }
   };
 
@@ -60,14 +64,10 @@ const OrderPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 pt-24 pb-16 px-4 sm:px-6 lg:px-16">
       <h1 className="text-4xl font-extrabold text-gray-800 mb-4">My Orders</h1>
-      <p className="text-gray-500 mb-10 text-lg">
-        All your past food orders at one place.
-      </p>
+      <p className="text-gray-500 mb-10 text-lg">All your past food orders at one place.</p>
 
       {orders.length === 0 ? (
-        <div className="text-center text-gray-600 text-lg font-medium">
-          No orders yet.
-        </div>
+        <div className="text-center text-gray-600 text-lg font-medium">No orders yet.</div>
       ) : (
         <div className="space-y-6">
           {orders.map(order => (
@@ -85,9 +85,7 @@ const OrderPage = () => {
                   </p>
                   <p className="text-sm text-gray-500 mt-1">
                     Status:{" "}
-                    <span className="font-semibold text-blue-700">
-                      {order.orderStatus}
-                    </span>
+                    <span className="font-semibold text-blue-700">{order.orderStatus}</span>
                   </p>
                 </div>
                 <span
@@ -102,8 +100,7 @@ const OrderPage = () => {
               </div>
 
               <div className="text-sm text-gray-700 mb-2">
-                <strong>Delivery Address:</strong>{" "}
-                {order.deliveryAddress.addressLine1}, {order.deliveryAddress.city}
+                <strong>Delivery Address:</strong> {order.deliveryAddress.addressLine1}, {order.deliveryAddress.city}
               </div>
 
               <div className="text-sm text-gray-700 mb-4">
